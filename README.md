@@ -4,7 +4,7 @@ How to set up a time-lapse with a Raspberry Pi using the camera module.
 
 ## Step 0: Camera setup
 
-If you're using a Raspberry Pi camera module, follow the [camera module setup guide](https://github.com/raspberrypi/documentation/tree/master/usage/camera).
+Follow the [camera module setup guide](https://github.com/raspberrypi/documentation/tree/master/usage/camera).
 
 ## Step 1: Test the camera
 
@@ -14,7 +14,7 @@ With the camera module connected and enabled, enter the following command in the
 raspistill -o cam.jpg
 ```
 
-Where 1280x720 is the resolution of the camera. You should see a preview on screen as the picture is taken.
+You should see a preview on screen as the picture is taken.
 
 Now type `ls` and you should see a file called `cam.jpg`. Open your home folder in the file browser and view the image (right click and select `Open with image preview`). If there's a picture of what your camera was pointed at - then your camera works!
 
