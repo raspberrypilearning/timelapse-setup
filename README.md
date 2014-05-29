@@ -4,13 +4,13 @@ How to set up a time-lapse with a Raspberry Pi using the camera module.
 
 ## Step 0: Camera setup
 
-Follow the [camera module setup guide](https://github.com/raspberrypi/documentation/tree/master/usage/camera).
+Follow the [camera module setup guide](http://www.raspberrypi.org/help/camera-module-setup/).
 
 ## Step 1: Test the camera
 
 With the camera module connected and enabled, enter the following command in the Terminal to take a picture:
 
-```
+```bash
 raspistill -o cam.jpg
 ```
 
@@ -22,7 +22,7 @@ If your picture was upside-down this is because your camera is pointed upside-do
 
 If you intend to have your camera positioned upside-down, pass in the `-hf` and `-vf` flags to horizontally and vertically flip the image (otherwise skip to Step 2):
 
-```
+```bash
 raspistill -hf -vf -o cam2.jpg
 ```
 
@@ -32,7 +32,7 @@ Now check again, there should now be a `cam2.jpg` file. Open the image and check
 
 Now we'll write a Bash script which will take a picture and save it with the date and time. It can be as simple as this:
 
-```
+```bash
 #!/bin/bash
 
 DATE=$(date +"%Y-%m-%d_%H%M")
@@ -46,13 +46,13 @@ Create a new file called `camera.sh` by opening with a text editor, e.g. `nano c
 
 Now make this file executable with the following command:
 
-```
+```bash
 chmod +x camera.sh
 ```
 
 Running this script will save a picture with the timestamp as the filename in a folder called `camera` in your home directory. First we'll create this folder:
 
-```
+```bash
 mkdir camera
 ```
 
@@ -62,7 +62,7 @@ You can use `pwd` (present working directory) to verify your location and `ls` t
 
 Before continuing, test the script works as intended by running it from the command line (first return to the home directory with `cd`):
 
-```
+```bash
 ./camera.sh
 ```
 
@@ -76,7 +76,7 @@ Now you have a Bash script which takes pictures and timestamps them, you can sch
 
 To do this we'll use `cron`. First open the cron table for editing:
 
-```
+```bash
 sudo crontab -e
 ```
 
@@ -84,7 +84,7 @@ If you've not run `crontab` before you'll be prompted to select an editor - if y
 
 Now you'll see the `cron` file, scroll to the bottom where you'll see a line with the following column headers:
 
-```
+```bash
 # m h  dom mon dow   command
 ```
 
@@ -106,7 +106,7 @@ Minute, Hour, Day of Month, Month of Year, Day of Week and the command to be exe
 
 To schedule for the `camera.sh` script to be executed every minute, add the following line:
 
-```
+```bash
 * * * * * /home/pi/camera.sh 2>&1
 ```
 
@@ -114,13 +114,13 @@ Now save and exit. If you're using `nano` as your editor, that's `Ctrl + O` to s
 
 You should see the following message:
 
-```
+```bash
 crontab: installing new crontab
 ```
 
 Now return to the camera directory to see the photos start to appear:
 
-```
+```bash
 cd ~/camera/
 ```
 
@@ -146,19 +146,19 @@ If your monitor is attached, you can use `ls`, `watch ls` and even the file brow
 
 #### SSH
 
-You can gain remote access to the command line using [SSH](ttps://github.com/raspberrypi/documentation/blob/master/remote-access/ssh/README.md) use `ls` and `watch ls` to verify the pictures are being captured.
+You can gain remote access to the command line using [SSH](http://www.raspberrypi.org/documentation/remote-access/ssh/README.md) use `ls` and `watch ls` to verify the pictures are being captured.
 
 #### SCP
 
-Use [SCP](https://github.com/raspberrypi/documentation/blob/master/remote-access/ssh/scp.md) (Secure copy) to copy files over [SSH](https://github.com/raspberrypi/documentation/blob/master/remote-access/ssh/README.md).
+Use [SCP](http://www.raspberrypi.org/documentation/remote-access/ssh/scp.md) (Secure copy) to copy files over SSH.
 
 #### rsync
 
-Use [`rsync`](https://github.com/raspberrypi/documentation/blob/master/remote-access/ssh/rsync.md) to syncronise a folder on the Pi with a folder on your computer.
+Use [rsync](http://www.raspberrypi.org/documentation/remote-access/ssh/rsync.md) to syncronise a folder on the Pi with a folder on your computer.
 
 #### FTP
 
-Set up an [FTP](https://github.com/raspberrypi/documentation/blob/master/remote-access/ftp.md) server on the Pi and use an FTP client on another computer to access the Pi's filesystem remotely, and copy files over.
+Set up an [FTP](http://www.raspberrypi.org/documentation/remote-access/ftp.md) server on the Pi and use an FTP client on another computer to access the Pi's filesystem remotely, and copy files over.
 
 #### SD Card
 
@@ -172,7 +172,7 @@ You can do this on the Pi using `mencoder` but the processing will be slow. You 
 
 Navigate to the folder containing all your images and list the file names in to a text file. For example:
 
-```
+```bash
 ls *.jpg > stills.txt
 ```
 
@@ -180,13 +180,13 @@ ls *.jpg > stills.txt
 
 Install the package mencoder:
 
-```
+```bash
 sudo apt-get install mencoder
 ```
 
 Now run the following command:
 
-```
+```bash
 mencoder -nosound -ovc lavc -lavcopts vcodec=mpeg4:aspect=16/9:vbitrate=8000000 -vf scale=1920:1080 -o timelapse.avi -mf type=jpeg:fps=24 mf://@stills.txt
 ```
 
