@@ -169,7 +169,7 @@ You can do this on the Pi using `mencoder` but the processing will be slow. You 
 Navigate to the folder containing all your images and list the file names in to a text file. For example:
 
 ```bash
-ls *.jpg > stills.txt
+ls *.jpg | sort --version-sort > stills.txt
 ```
 
 ### On Raspberry Pi or other Linux computer
