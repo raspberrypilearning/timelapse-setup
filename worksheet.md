@@ -1,199 +1,148 @@
-## Step 0: Camera setup
+# Creating time-lapse animations with a Raspberry Pi and PiCamera
 
-Follow the [camera module setup guide](http://www.raspberrypi.org/help/camera-module-setup/).
+Time-Lapse photography uses multiple images taken over a length period of time, that are then stitched together to produce an animated sequence of images.
 
-## Step 1: Test the camera
+If you've never seen a time lapse before, then the one below is an example of what can be achieved.
 
-With the camera module connected and enabled, enter the following command in the Terminal to take a picture:
+![mung bean time-lapse](images/mungbeans.gif)
 
-```bash
-raspistill -o cam.jpg
+If you've never before used the Raspberry Pi Camera before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise your self with the device, and make sure it is working properly.
+
+n## Taking a picture
+
+You can start by writing a simple script to take a picture using the Pi Camera.
+
+1. Open IDLE (`Menu` > `Programming` > `Python 3 (IDLE)`
+
+1. Create a new file. (`File` > `New File`) and then save it as **timelapse.py**.
+
+1. Now with three simple lines of code, you can use Python to take a photo.
+
+``` python
+from picamera import PiCamera
+
+camera = PiCamera()
+
+camera.capture('image.jpg')
 ```
 
-You should see a preview on screen as the picture is taken.
+1. Save your script again, and then run it by pressing `F5` on your keyboard.
 
-Now type `ls` and you should see a file called `cam.jpg`. Open your home folder in the file browser and view the image (right click and select `Open with image preview`). If there's a picture of what your camera was pointed at - then your camera works!
+1. Open up your File Manager by clicking on the ![File Manager](images/file_icon.jpg) icon in the top left of the screen.
 
-If your picture was upside-down this is because your camera is pointed upside-down - that's ok - sometimes it's easier to have it that way up, and you can flip the image over.
+  ![selfie](images/selfie.jpg)
+  
+## Taking multiple images
 
-If you intend to have your camera positioned upside-down, pass in the `-hf` and `-vf` flags to horizontally and vertically flip the image (otherwise skip to Step 2):
+You can take multiple images using the Pi Camera by capturing images using a loop. A `for` loop can be used to capture a set number of images.
 
-```bash
-raspistill -hf -vf -o cam2.jpg
-```
+1. Modify your file to incorporate a `for` loop. In this example, the Pi Camera will capture 10 images.
 
-Now check again, there should now be a `cam2.jpg` file. Open the image and check it's the right way up.
+	``` python
+	from picamera import PiCamera
 
-## Step 2: Write a script
+	camera = PiCamera()
 
-Now we'll write a Bash script which will take a picture and save it with the date and time. It can be as simple as this:
+	for i in range(10):
+		camera.capture('image.jpg')
+	```
+1. Save (`Ctrl+s`) and run (`F5`) your program. Then have a look inside your **File Manager** to see what has been created.
 
-```bash
-#!/bin/bash
+1. Can you see the problem? There is only one image there, and it's the last image that was taken. This is because, each image had the same file name, so was *over written* by the next image to be taken. This can be solved with a little modification of the script.
 
-DATE=$(date +"%Y-%m-%d_%H%M")
+	``` python
+	from picamera import PiCamera
 
-raspistill -o /home/pi/camera/$DATE.jpg
-```
+	camera = PiCamera()
 
-Remember to use the `-vf` and `-hf` flags if your camera is pointed upside-down.
+	for i in range(10):
+		camera.capture('image{0:04d}.jpg'.format(i))
+	```
 
-Create a new file called `camera.sh` by opening with a text editor, e.g. `nano camera.sh`, paste or otherwise enter the lines from above and save the file.
+1. If you look in the **File Manager** now, you should see 10 images named `image0000.jpg` up to `image0009.jpg`
 
-Now make this file executable with the following command:
+1. The syntax `'image{0:04d}.jpg'.format(i)` adds the value of `i` which starts at `0` and ends at `9` to the file name. It also pads the number with zeros, so that there are always 4 digits. This will be important later on.
 
-```bash
-chmod +x camera.sh
-```
+## Making a gif
 
-Running this script will save a picture with the timestamp as the filename in a folder called `camera` in your home directory. First we'll create this folder:
+Now that you know hoe to take multiple photos, let's see how you can turn that sequence into an animated gif. For this you're going to need the program **Imagemagick**. If you haven't already installed it there are instructions in the [software setup guide](software.md)
 
-```bash
-mkdir camera
-```
+1. **Imagemagick** is a command line program that can be used to manipulate images. You can try it out, first of all, by opening up your terminal (`ctrl+alt+t`) and typing the following:
 
-Make sure you're in the home directory when you do this. If you're not, or you're not sure, just type `cd` and hit `Enter` to return to your home directory.
+	``` bash
+	convert -delay 10 -loop 0 image*.jpg animation.gif
+	```
 
-You can use `pwd` (present working directory) to verify your location and `ls` to show the contents. After running `mkdir` you should see a new folder there.
+1. This will take a little time to run, but once it's complete you should see the file `animation.gif` in the **File Manager**
 
-Before continuing, test the script works as intended by running it from the command line (first return to the home directory with `cd`):
+1. You can double click this and watch the animation in **Image Viewer**. Again, give it a little time to open as it's probably a fairly large file.
 
-```bash
-./camera.sh
-```
+1. As with all command line programs, you can call **Imagemagick** from within python. You just need to use the `os` library, as shown below.
 
-You should see the preview again as the picture is taken. Now use `ls camera` to look inside the `camera` folder to see the picture you just captured on disk.
+    ``` python
+	from picamera import PiCamera
+	from os import system
+	
+	camera = PiCamera()
 
-Open the file browser and preview the image to see the picture itself. If you're happy this worked as intended, and the date and time were given in the filename, continue to automation.
+	for i in range(10):
+		camera.capture('image{0:04d}.jpg'.format(i))
+		
+	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
+	print('done')
+    ```
 
-## Step 3: Schedule taking pictures
+1. This will take a little time to run. You should see the word `done` printed in the *Shell* when the script has finished. Your new `animation.gif` will be playable from the **File Manager** after a couple of minutes.
 
-Now you have a Bash script which takes pictures and timestamps them, you can schedule the script to be run at an interval, say every minute.
+## Reducing the file size.
 
-To do this we'll use `cron`. First open the cron table for editing:
+Currently your animated gif is probably sitting at around the 10MB range, which is a little large for only a 10 frame animation. This is because your Pi Camera captures images at a resolution of 3280 x 2464 if you have a Pi Camera 2 or 1920 x 1080 if you have a Pi Camera 1. You produce smaller gifs by using a smaller image resolution.
 
-```bash
-sudo crontab -e
-```
+1. Go back to your `timelapse.py` file. Now add in a single new line to set the resolution of the images.
 
-If you've not run `crontab` before you'll be prompted to select an editor - if you don't know the difference, choose `nano` by hitting `Enter`.
+    ``` python
+	from picamera import PiCamera
+	from os import system
+	
+	camera = PiCamera()
+	camera.resolution = (1024, 768)
+	
+	for i in range(10):
+		camera.capture('image{0:04d}.jpg'.format(i))
+		
+	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
+    ```
+	
+1. If you want even smaller gifs, then choose an even smaller resolution.
 
-Now you'll see the `cron` file, scroll to the bottom where you'll see a line with the following column headers:
+## Adding a delay
 
-```bash
-# m h  dom mon dow   command
-```
+The point of time-lapse is to take pictures every few minutes or even hours. To do this you can pause your program between captures, using the `time` library.
 
-The layout for a cron entry is made up of six components:
+1. Back in your `timelapse.py` file, alter the code so that you can import the `sleep` function, and then pause the script after each `capture`
 
-Minute, Hour, Day of Month, Month of Year, Day of Week and the command to be executed.
-
-```
-# * * * * *  command to execute
-# ┬ ┬ ┬ ┬ ┬
-# │ │ │ │ │
-# │ │ │ │ │
-# │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday, or use names; 7 is Sunday, the same as 0)
-# │ │ │ └────────── month (1 - 12)
-# │ │ └─────────────── day of month (1 - 31)
-# │ └──────────────────── hour (0 - 23)
-# └───────────────────────── min (0 - 59)
-```
-
-To schedule for the `camera.sh` script to be executed every minute, add the following line:
-
-```bash
-* * * * * /home/pi/camera.sh 2>&1
-```
-
-Now save and exit. If you're using `nano` as your editor, that's `Ctrl + O` to save and `Ctrl + X` to exit.
-
-You should see the following message:
-
-```bash
-crontab: installing new crontab
-```
-
-Now return to the camera directory to see the photos start to appear:
-
-```bash
-cd ~/camera/
-```
-
-and use `ls` to see the contents of the folder. Enter `date` to see how close you are to the minute (`00` seconds) as a new picture should be captured at this precise time.
-
-Use `watch ls` to see changes to the contents of the folder. `watch` runs the command runs every 2 seconds (by default).
-
-## Step 4: Patience
-
-If you see pictures landing in the `camera` folder every minute, and you're happy with the orientation of the pictures, now position the camera wherever you want it to point at.
-
-Perhaps use a camera mount or simply tape the Pi to a wall or object and position the camera with tape. Make sure the camera position is static and will remain in place over time.
-
-You can shut down the Pi, remove it from the monitor and ethernet and simply have it running on power (when you plug it in, it will boot as normal and `cron` will run as expected) in the position you require.
-
-You can even use a battery pack if you have one that lasts long enough for your requirements. This is especially handy if you need to position the power out of reach of a power socket, such as on a roof or in a tree!
-
-### Copying pictures remotely
-
-If you have network connection with the Pi (wired or wireless) or your monitor is still attached, you can check the progress of the photos.
-
-If your monitor is attached, you can use `ls`, `watch ls` and even the file browser to see photos as they are captured, otherwise you can remotely access your Pi from another computer to copy the files to your computer. Here are some options, which you can read about in our documentation:
-
-#### SSH
-
-You can gain remote access to the command line using [SSH](http://www.raspberrypi.org/documentation/remote-access/ssh/README.md) use `ls` and `watch ls` to verify the pictures are being captured.
-
-#### SCP
-
-Use [SCP](http://www.raspberrypi.org/documentation/remote-access/ssh/scp.md) (Secure copy) to copy files over SSH.
-
-#### rsync
-
-Use [rsync](http://www.raspberrypi.org/documentation/remote-access/ssh/rsync.md) to syncronise a folder on the Pi with a folder on your computer.
-
-#### FTP
-
-Set up an [FTP](http://www.raspberrypi.org/documentation/remote-access/ftp.md) server on the Pi and use an FTP client on another computer to access the Pi's filesystem remotely, and copy files over.
-
-#### SD Card
-
-If you're using Linux on another computer you can transfer the files directly from the SD card, as it can mount the filesystem partition.
-
-## Step 5: Turn stills in to a video
-
-Now you'll need to stitch the photos together in to a video to achieve the time-lapse effect.
-
-You can do this on the Pi using `mencoder` but the processing will be slow. You may prefer to transfer the image files to your desktop computer or laptop and processing the video there.
-
-Navigate to the folder containing all your images and list the file names in to a text file. For example:
-
-```bash
-ls *.jpg > stills.txt
-```
-
-### On Raspberry Pi or other Linux computer
-
-Install the package mencoder:
-
-```bash
-sudo apt-get install mencoder
-```
-
-Now run the following command:
-
-```bash
-mencoder -nosound -ovc lavc -lavcopts vcodec=mpeg4:aspect=16/9:vbitrate=8000000 -vf scale=1920:1080 -o timelapse.avi -mf type=jpeg:fps=24 mf://@stills.txt
-```
-
-This will save a video called `timelapse.avi`
-
-## Licence
-
-Unless otherwise specified, everything in this repository is covered by the following licence:
-
-![Creative Commons License](http://i.creativecommons.org/l/by-sa/4.0/88x31.png)
-
-***Time-lapse Setup*** by the [Raspberry Pi Foundation](http://raspberrypi.org) is licenced under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
-
-Based on a work at https://github.com/raspberrypilearning/timelapse-setup
+    ``` python
+	from picamera import PiCamera
+	from os import system
+	from time import sleep
+	
+	camera = PiCamera()
+	camera.resolution = (1024, 768)
+	
+	for i in range(10):
+		camera.capture('image{0:04d}.jpg'.format(i))
+		sleep(60)
+		
+	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
+    ```
+
+1. In the above example a picture is taken once every 60 seconds, and 10 pictures are taken in total. You can now modify the values for the `range()` and `sleep()` functions to whatever suits your purpose. For capturing a flower opening, then a picture a minute for a couple of hours would suffice. If you wanted to do a time-lapse of a fruit rotting, then two or three pictures a day might be more appropriate.
+
+1. Set up your Raspberry Pi with the Pi Camera pointing at your target, run the script and then sit back and wait for the gif to be created.
+
+## What Next?
+- Now that you've managed to do some time-lapse photography, why not have a go at some other PiCamera resources like:
+    - [Minecraft Photo-booth](https://www.raspberrypi.org/learning/minecraft-photobooth/)
+	- [Push Button Stop Motion](https://www.raspberrypi.org/learning/push-button-stop-motion/)
+	- [Infrared Bird Box](https://www.raspberrypi.org/learning/infrared-bird-box/)
+- You could even have a go at playing around with some slow motion video captures.
