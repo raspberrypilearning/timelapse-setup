@@ -140,7 +140,7 @@ The point of time-lapse is to take pictures every few minutes or even hours. To 
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
     ```
 
-1. In the above example a picture is taken once every 60 seconds, and ten pictures are taken in total. You can now modify the values for the `range()` and `sleep()` functions to whatever suits your purpose. For capturing a flower opening, then a picture a minute for a couple of hours would suffice. If you wanted to do a time lapse of a fruit rotting, then two or three pictures a day might be more appropriate.
+1. In the above example a picture is taken once every 60 seconds, and ten pictures are taken in total. You can now modify the values for the `range()` and `sleep()` functions to whatever suits your purpose. If you want to capture a flower opening, then a picture a minute for a couple of hours would suffice. If you were making a time lapse of a fruit rotting, then two or three pictures a day might be more appropriate.
 
 1. Set up your Raspberry Pi with the Camera Module pointing at your target, run the script, and then sit back and wait for the gif to be created.
 
@@ -149,4 +149,4 @@ The point of time-lapse is to take pictures every few minutes or even hours. To 
     - [Minecraft Photo-booth](https://www.raspberrypi.org/learning/minecraft-photobooth/)
 	- [Push Button Stop Motion](https://www.raspberrypi.org/learning/push-button-stop-motion/)
 	- [Infrared Bird Box](https://www.raspberrypi.org/learning/infrared-bird-box/)
-- You could even have a go at playing around with some slow motion video captures.
+- You could even have a go at playing around with some slow-motion video captures.
