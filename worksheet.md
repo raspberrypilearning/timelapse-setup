@@ -28,7 +28,7 @@ camera.capture('image.jpg')
 
 1. Save your script again, and then run it by pressing `F5` on your keyboard.
 
-1. Open up your File Manager by clicking on the ![File Manager](images/file_icon.jpg) icon in the top left of the screen.
+1. Open up your File Manager by clicking on the ![File Manager](images/file_icon.png) icon in the top left of the screen.
 
   ![selfie](images/selfie.jpg)
   
