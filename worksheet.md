@@ -1,4 +1,4 @@
-# Creating time-lapse animations with a Raspberry Pi and PiCamera
+# Time-lapse animations with a Raspberry Pi
 
 Time-Lapse photography uses multiple images taken over a length period of time, that are then stitched together to produce an animated sequence of images.
 
@@ -8,7 +8,7 @@ If you've never seen a time lapse before, then the one below is an example of wh
 
 If you've never before used the Raspberry Pi Camera before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise your self with the device, and make sure it is working properly.
 
-n## Taking a picture
+## Taking a picture
 
 You can start by writing a simple script to take a picture using the Pi Camera.
 
@@ -73,7 +73,11 @@ Now that you know hoe to take multiple photos, let's see how you can turn that s
 	convert -delay 10 -loop 0 image*.jpg animation.gif
 	```
 
+1. The `-delay` option sets the amount of time (in 100ths of a second) between frames. The `-loop` option sets the number of times the gif will loop. Here the `0` tells it to loop for ever.
+
 1. This will take a little time to run, but once it's complete you should see the file `animation.gif` in the **File Manager**
+
+![animated](images/animation.gif)
 
 1. You can double click this and watch the animation in **Image Viewer**. Again, give it a little time to open as it's probably a fairly large file.
 
