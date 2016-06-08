@@ -81,7 +81,7 @@ Now that you know how to take multiple photos, let's see how you can turn that s
 
 1. You can double click this and watch the animation in **Image Viewer**. Again, give it a little time to open as it's probably a fairly large file.
 
-1. As with all command line programs, you can call **Imagemagick** from within python. You just need to use the `os` library, as shown below.
+1. As with all command line programs, you can call **Imagemagick** from within Python. You just need to use the `os` library, as shown below.
 
     ``` python
 	from picamera import PiCamera
@@ -96,11 +96,11 @@ Now that you know how to take multiple photos, let's see how you can turn that s
 	print('done')
     ```
 
-1. This will take a little time to run. You should see the word `done` printed in the *Shell* when the script has finished. Your new `animation.gif` will be playable from the **File Manager** after a couple of minutes.
+1. This will take a little time to run. You should see the word `done` printed in the **Shell** when the script has finished. Your new `animation.gif` will be playable from the **File Manager** after a couple of minutes.
 
 ## Reducing the file size.
 
-Currently your animated gif is probably sitting at around the 10MB range, which is a little large for only a 10 frame animation. This is because your Pi Camera captures images at a resolution of 3280 x 2464 if you have a Pi Camera 2 or 1920 x 1080 if you have a Pi Camera 1. You produce smaller gifs by using a smaller image resolution.
+Currently your animated gif is probably sitting at around the 10MB range, which is a little large for only a ten frame animation. This is because your Pi Camera captures images at a resolution of 3280 x 2464 if you have a Camera Module v2 or 1920 x 1080 if you have an original Camera Module. You produce smaller gifs by using a smaller image resolution.
 
 1. Go back to your `timelapse.py` file. Now add in a single new line to set the resolution of the images.
 
@@ -140,9 +140,9 @@ The point of time-lapse is to take pictures every few minutes or even hours. To 
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
     ```
 
-1. In the above example a picture is taken once every 60 seconds, and 10 pictures are taken in total. You can now modify the values for the `range()` and `sleep()` functions to whatever suits your purpose. For capturing a flower opening, then a picture a minute for a couple of hours would suffice. If you wanted to do a time-lapse of a fruit rotting, then two or three pictures a day might be more appropriate.
+1. In the above example a picture is taken once every 60 seconds, and ten pictures are taken in total. You can now modify the values for the `range()` and `sleep()` functions to whatever suits your purpose. For capturing a flower opening, then a picture a minute for a couple of hours would suffice. If you wanted to do a time lapse of a fruit rotting, then two or three pictures a day might be more appropriate.
 
-1. Set up your Raspberry Pi with the Pi Camera pointing at your target, run the script and then sit back and wait for the gif to be created.
+1. Set up your Raspberry Pi with the Camera Module pointing at your target, run the script, and then sit back and wait for the gif to be created.
 
 ## What Next?
 - Now that you've managed to do some time-lapse photography, why not have a go at some other PiCamera resources like:
