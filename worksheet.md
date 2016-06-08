@@ -1,12 +1,12 @@
 # Time-lapse animations with a Raspberry Pi
 
-Time-Lapse photography uses multiple images taken over a length period of time, that are then stitched together to produce an animated sequence of images.
+Time-lapse photography uses multiple images taken over a length period of time, which are then stitched together to produce an animated sequence of images.
 
 If you've never seen a time lapse before, then the one below is an example of what can be achieved.
 
 ![mung bean time-lapse](images/mungbeans.gif)
 
-If you've never before used the Raspberry Pi Camera before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise your self with the device, and make sure it is working properly.
+If you've never before used the Raspberry Pi Camera before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise yourself with the device, and to make sure it is working properly.
 
 ## Taking a picture
 
