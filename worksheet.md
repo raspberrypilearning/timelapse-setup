@@ -6,11 +6,11 @@ If you've never seen a time lapse before, then the one below is an example of wh
 
 ![mung bean time-lapse](images/mungbeans.gif)
 
-If you've never before used the Raspberry Pi Camera before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise yourself with the device, and to make sure it is working properly.
+If you've never before used the Raspberry Pi Camera Module before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise yourself with the device, and to make sure it is working properly.
 
 ## Taking a picture
 
-You can start by writing a simple script to take a picture using the Pi Camera.
+You can start by writing a simple script to take a picture using the Camera Module.
 
 1. Open IDLE (`Menu` > `Programming` > `Python 3 (IDLE)`
 
@@ -34,7 +34,7 @@ camera.capture('image.jpg')
   
 ## Taking multiple images
 
-You can take multiple images using the Pi Camera by capturing images using a loop. A `for` loop can be used to capture a set number of images.
+You can take multiple images using the Camera Module by capturing images using a loop. A `for` loop can be used to capture a set number of images.
 
 1. Modify your file to incorporate a `for` loop. In this example, the Pi Camera will capture 10 images.
 
@@ -48,7 +48,7 @@ You can take multiple images using the Pi Camera by capturing images using a loo
 	```
 1. Save (`Ctrl+s`) and run (`F5`) your program. Then have a look inside your **File Manager** to see what has been created.
 
-1. Can you see the problem? There is only one image there, and it's the last image that was taken. This is because, each image had the same file name, so was *over written* by the next image to be taken. This can be solved with a little modification of the script.
+1. Can you see the problem? There is only one image there, and it's the last image that was taken. This is because each image had the same file name, so was overwritten by the next image to be taken. This is a problem which can be solved by a little modification of the script.
 
 	``` python
 	from picamera import PiCamera
@@ -59,13 +59,13 @@ You can take multiple images using the Pi Camera by capturing images using a loo
 		camera.capture('image{0:04d}.jpg'.format(i))
 	```
 
-1. If you look in the **File Manager** now, you should see 10 images named `image0000.jpg` up to `image0009.jpg`
+1. If you look in the **File Manager** now, you should see ten images named `image0000.jpg` up to `image0009.jpg`
 
 1. The syntax `'image{0:04d}.jpg'.format(i)` adds the value of `i` which starts at `0` and ends at `9` to the file name. It also pads the number with zeros, so that there are always 4 digits. This will be important later on.
 
 ## Making a gif
 
-Now that you know hoe to take multiple photos, let's see how you can turn that sequence into an animated gif. For this you're going to need the program **Imagemagick**. If you haven't already installed it there are instructions in the [software setup guide](software.md)
+Now that you know how to take multiple photos, let's see how you can turn that sequence into an animated gif. For this you're going to need the program **Imagemagick**. If you haven't already installed it, there are instructions in the [software setup guide](software.md).
 
 1. **Imagemagick** is a command line program that can be used to manipulate images. You can try it out, first of all, by opening up your terminal (`ctrl+alt+t`) and typing the following:
 
