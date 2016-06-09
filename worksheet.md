@@ -1,12 +1,12 @@
 # Time-lapse animations with a Raspberry Pi
 
-Time-lapse photography uses multiple images taken over a length period of time, which are then stitched together to produce an animated sequence of images.
+Time-lapse photography uses multiple images taken over a long period of time, which are then stitched together to produce an animated sequence of images.
 
 If you've never seen a time lapse before, then the one below is an example of what can be achieved.
 
 ![mung bean time-lapse](images/mungbeans.gif)
 
-If you've never before used the Raspberry Pi Camera Module before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise yourself with the device, and to make sure it is working properly.
+If you've never used the Raspberry Pi Camera Module before, then it is probably a good idea to have a quick look through the first few steps in the [Getting Started with PiCamera](https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/) resource, to familiarise yourself with the device, and to make sure it is working properly.
 
 ## Taking a picture
 
@@ -18,17 +18,17 @@ You can start by writing a simple script to take a picture using the Camera Modu
 
 1. Now with three simple lines of code, you can use Python to take a photo.
 
-``` python
-from picamera import PiCamera
+	``` python
+	from picamera import PiCamera
 
-camera = PiCamera()
+	camera = PiCamera()
 
-camera.capture('image.jpg')
-```
+	camera.capture('image.jpg')
+	```
 
-1. Save your script again, and then run it by pressing `F5` on your keyboard.
+1. Save (`Ctrl+s`) your script, and then run it by pressing `F5` on your keyboard.
 
-1. Open up your File Manager by clicking on the ![File Manager](images/file_icon.png) icon in the top left of the screen.
+1. Open up your File Manager by clicking on the ![File Manager](images/file_icon.png) icon in the top left of the screen, and double-click on `image.jpg`.
 
   ![selfie](images/selfie.jpg)
   
@@ -46,7 +46,7 @@ You can take multiple images using the Camera Module by capturing images using a
 	for i in range(10):
 		camera.capture('image.jpg')
 	```
-1. Save (`Ctrl+s`) and run (`F5`) your program. Then have a look inside your **File Manager** to see what has been created.
+1. Save your script again and run (`F5`) your program. Then have a look inside your **File Manager** to see what has been created.
 
 1. Can you see the problem? There is only one image there, and it's the last image that was taken. This is because each image had the same file name, so was overwritten by the next image to be taken. This is a problem which can be solved by a little modification of the script.
 
@@ -67,13 +67,13 @@ You can take multiple images using the Camera Module by capturing images using a
 
 Now that you know how to take multiple photos, let's see how you can turn that sequence into an animated gif. For this you're going to need the program **Imagemagick**. If you haven't already installed it, there are instructions in the [software setup guide](software.md).
 
-1. **Imagemagick** is a command line program that can be used to manipulate images. You can try it out, first of all, by opening up your terminal (`ctrl+alt+t`) and typing the following:
+1. **Imagemagick** is a command line program that can be used to manipulate images. You can try it out, first of all, by opening up your terminal (`Ctrl+Alt+t`) and typing the following:
 
 	``` bash
 	convert -delay 10 -loop 0 image*.jpg animation.gif
 	```
 
-1. The `-delay` option sets the amount of time (in 100ths of a second) between frames. The `-loop` option sets the number of times the gif will loop. Here the `0` tells it to loop for ever.
+1. The `-delay` option sets the amount of time (in 100ths of a second) between frames. The `-loop` option sets the number of times the gif will loop. Here the `0` tells it to loop forever.
 
 1. This will take a little time to run, but once it's complete you should see the file `animation.gif` in the **File Manager**
 
@@ -83,7 +83,7 @@ Now that you know how to take multiple photos, let's see how you can turn that s
 
 1. As with all command line programs, you can call **Imagemagick** from within Python. You just need to use the `os` library, as shown below.
 
-    ``` python
+	``` python
 	from picamera import PiCamera
 	from os import system
 	
@@ -94,7 +94,7 @@ Now that you know how to take multiple photos, let's see how you can turn that s
 		
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
 	print('done')
-    ```
+	```
 
 1. This will take a little time to run. You should see the word `done` printed in the **Shell** when the script has finished. Your new `animation.gif` will be playable from the **File Manager** after a couple of minutes.
 
@@ -104,7 +104,7 @@ Currently your animated gif is probably sitting at around the 10MB range, which 
 
 1. Go back to your `timelapse.py` file. Now add in a single new line to set the resolution of the images.
 
-    ``` python
+	``` python
 	from picamera import PiCamera
 	from os import system
 	
@@ -115,7 +115,7 @@ Currently your animated gif is probably sitting at around the 10MB range, which 
 		camera.capture('image{0:04d}.jpg'.format(i))
 		
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
-    ```
+	```
 	
 1. If you want even smaller gifs, then choose an even smaller resolution.
 
@@ -125,7 +125,7 @@ The point of time-lapse is to take pictures every few minutes or even hours. To 
 
 1. Back in your `timelapse.py` file, alter the code so that you can import the `sleep` function, and then pause the script after each `capture`
 
-    ``` python
+	``` python
 	from picamera import PiCamera
 	from os import system
 	from time import sleep
@@ -138,7 +138,7 @@ The point of time-lapse is to take pictures every few minutes or even hours. To 
 		sleep(60)
 		
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
-    ```
+	```
 
 1. In the above example a picture is taken once every 60 seconds, and ten pictures are taken in total. You can now modify the values for the `range()` and `sleep()` functions to whatever suits your purpose. If you want to capture a flower opening, then a picture a minute for a couple of hours would suffice. If you were making a time lapse of a fruit rotting, then two or three pictures a day might be more appropriate.
 
@@ -146,7 +146,7 @@ The point of time-lapse is to take pictures every few minutes or even hours. To 
 
 ## What Next?
 - Now that you've managed to do some time-lapse photography, why not have a go at some other PiCamera resources like:
-    - [Minecraft Photo-booth](https://www.raspberrypi.org/learning/minecraft-photobooth/)
+	- [Minecraft Photo-booth](https://www.raspberrypi.org/learning/minecraft-photobooth/)
 	- [Push Button Stop Motion](https://www.raspberrypi.org/learning/push-button-stop-motion/)
 	- [Infrared Bird Box](https://www.raspberrypi.org/learning/infrared-bird-box/)
 - You could even have a go at playing around with some slow-motion video captures.
