@@ -4,7 +4,7 @@ All contributions are assumed to be licensed under the same licence as the sourc
 
 ## Issues
 
-If you find a mistake, bug or other problem, please [open an issue](https://github.com/raspberrypilearning/dress-for-the-weather/issues) in this repository.
+If you find a mistake, bug or other problem, please [open an issue](https://github.com/raspberrypilearning/timelapse-setup/issues) in this repository.
 
 ## Pull Requests
 
