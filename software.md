@@ -1,6 +1,6 @@
 # Software installation
 
-This project requires ImageMagick, a command-line program for image manipulation. To install ImageMagick, run the following commands in a Terminal
+This project requires ImageMagick, a command-line program for image manipulation. To install ImageMagick, run the following commands in a terminal window: 
 
 ```bash
 sudo apt-get update
