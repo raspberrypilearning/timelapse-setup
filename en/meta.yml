@@ -1,0 +1,25 @@
+---
+title: Time-lapse animations with a Raspberry Pi
+hero_image: images/banner.png
+description: Learn how to setup a Pi Camera to take time-lapse pictures
+original_url: https://raspberrypi.org/learning/timelapse-setup
+theme: red
+duration: 2
+listed: true
+ingredient: false
+copyedit: true
+curriculum: creator, design-0, programming-0, phys-comp-0, manufacture-0, community-0
+interests: ''
+technologies: rpi, physical computing, python
+site_areas: ''
+steps:
+- title: Introduction
+- title: What you will need
+- title: Time-lapse animations with a Raspberry Pi
+- title: Taking a picture
+- title: Taking multiple images
+- title: Making a GIF
+- title: Reducing the file size
+- title: Adding a delay
+- title: What next?
+
