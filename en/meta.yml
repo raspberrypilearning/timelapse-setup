@@ -16,13 +16,15 @@ hardware: raspberry-pi, electronic-components
 software: python
 version: 3
 last_tested: 2017-01-01
-steps: 
+steps:
 - title: Introduction
 - title: What you will need
+  completion: engaged
 - title: Time-lapse animations with a Raspberry Pi
 - title: Taking a picture
 - title: Taking multiple images
 - title: Making a GIF
 - title: Reducing the file size
+  completion: internal
 - title: Adding a delay
 - title: What next?
