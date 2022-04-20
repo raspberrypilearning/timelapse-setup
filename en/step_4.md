@@ -2,7 +2,7 @@
 
 You can start by writing a simple script to take a picture using the Camera Module.
 
-- Open IDLE (`Menu` > `Programming` > `Python 3 (IDLE)`.
+- Open Thonny (`Menu` > `Programming` > `Thonny`.
 
 - Create a new file (`File` > `New File`) and then save it as **timelapse.py**.
 
