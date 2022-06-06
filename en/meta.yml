@@ -19,12 +19,14 @@ last_tested: 2017-01-01
 steps:
 - title: Introduction
 - title: What you will need
-  completion: engaged
 - title: Time-lapse animations with a Raspberry Pi
 - title: Taking a picture
+  completion:
+  - engaged
 - title: Taking multiple images
 - title: Making a GIF
 - title: Reducing the file size
-  completion: internal
 - title: Adding a delay
+  completion:
+  - internal
 - title: What next?
