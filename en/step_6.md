@@ -12,7 +12,7 @@ Now that you know how to take multiple photos, let's see how you can turn that s
 
 - This will take a little time to run, but once it's complete you should see the file `animation.gif` in the File Manager:
 
-	![animated](images/animation.gif)
+	![Time lapse animation of a lava lamp dispersing and reforming](images/animation.gif)
 
 - You can double-click this and watch the animation in Image Viewer. Again, give it a little time to open as it's probably a fairly large file.
 
