@@ -9,11 +9,11 @@ You can start by writing a simple script to take a picture using the Camera Modu
 - Now with three simple lines of code, you can use Python to take a photo:
 
 	``` python
-	from picamera import PiCamera
+	from picamzero import Camera
 
-	camera = PiCamera()
+	camera = Camera()
 
-	camera.capture('image.jpg')
+	camera.take_photo('image.jpg')
 	```
 
 - Save (`Ctrl+s`) your script, and then run it by pressing `F5` on your keyboard.

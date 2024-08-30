@@ -19,13 +19,13 @@ Now that you know how to take multiple photos, let's see how you can turn that s
 - As with all command line programs, you can call ImageMagick from within Python. You just need to use the `os` library, as shown below:
 
 	``` python
-	from picamera import PiCamera
+	from picamzero import Camera
 	from os import system
 	
-	camera = PiCamera()
+	camera = Camera()
 
 	for i in range(10):
-		camera.capture('image{0:04d}.jpg'.format(i))
+		camera.take_photo('image{0:04d}.jpg'.format(i))
 		
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
 	print('done')
