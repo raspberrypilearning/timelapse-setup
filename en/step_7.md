@@ -5,14 +5,14 @@ Currently, your animated GIF is probably sitting at around the 10MB range, which
 - Go back to your `timelapse.py` file. Now add in a single new line to set the resolution of the images:
 
 	``` python
-	from picamera import PiCamera
+	from picamzero import Camera
 	from os import system
 	
-	camera = PiCamera()
-	camera.resolution = (1024, 768)
+	camera = Camera()
+	camera.still_size = (1024, 768)
 	
 	for i in range(10):
-		camera.capture('image{0:04d}.jpg'.format(i))
+		camera.take_photo('image{0:04d}.jpg'.format(i))
 		
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')
 	```

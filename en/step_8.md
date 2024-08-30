@@ -5,15 +5,15 @@ The point of time-lapse is to take pictures every few minutes or even hours. To 
 - Back in your `timelapse.py` file, alter the code so that you can import the `sleep` function, and then pause the script after each `capture`:
 
 	``` python
-	from picamera import PiCamera
+	from picamzero import Camera
 	from os import system
 	from time import sleep
 	
-	camera = PiCamera()
-	camera.resolution = (1024, 768)
+	camera = Camera()
+	camera.still_size = (1024, 768)
 	
 	for i in range(10):
-		camera.capture('image{0:04d}.jpg'.format(i))
+		camera.take_photo('image{0:04d}.jpg'.format(i))
 		sleep(60)
 		
 	system('convert -delay 10 -loop 0 image*.jpg animation.gif')

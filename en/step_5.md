@@ -5,9 +5,9 @@ You can take multiple images using the Camera Module by capturing images with a 
 - Modify your file to incorporate a `for` loop. In this example, the Pi Camera will capture 10 images:
 
 	``` python
-	from picamera import PiCamera
+	from picamzero import Camera
 
-	camera = PiCamera()
+	camera = Camera()
 
 	for i in range(10):
 		camera.take_photo('image.jpg')
