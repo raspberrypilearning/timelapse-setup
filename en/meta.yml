@@ -5,7 +5,7 @@ description: Learn how to setup a Pi Camera to take time-lapse pictures
 original_url: https://raspberrypi.org/learning/timelapse-setup
 theme: orange
 duration: 2
-listed: true
+listed: false
 ingredient: false
 copyedit: true
 curriculum: 2, design-0, programming-2, phys-comp-1, manufacture-0, community-0
